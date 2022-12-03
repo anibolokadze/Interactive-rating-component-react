@@ -1,25 +1,53 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { Container } from "./components/container/Container.styled";
+import  star  from "./images/Path.png"
+import Buttons from "./components/buttons/Button";
+import {Submit} from "./components/submit/Submit.Styled"
+import Rating from "./components/rating/Rating";
 
 function App() {
+  const [card, setCard] = useState(true);
+  const [selected, setSelected] = useState(true);
+
+  function handleClick() {
+    if (selected === true) {
+      return;
+    } else {
+      setCard(false);
+    }
+  }
+
+
+  
+  const buttonArray = [1, 2, 3, 4, 5];
+  
+  const getRating = (i) => {
+    setSelected(i);
+  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    {card ? (
+      <Container>
+        <img src={star} alt="Logo" className="iconStar"/>
+        <div>
+          <h1>How did we do? </h1>
+          <p>
+            Please let us know how we did with your support request. 
+            All feedback is appreciated to help us improve our offering!
+          </p>
+        </div>
+        <Buttons buttonArray = {buttonArray} getRating = {getRating} />
+        <Submit onClick={handleClick}>SUBMIT</Submit>
+      </Container>
+    ) : (
+      <Rating selected={selected} />
+    )}
+      
+    </>
   );
 }
 
 export default App;
+
